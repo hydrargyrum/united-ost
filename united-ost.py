@@ -12,8 +12,6 @@ except ImportError:
 
 
 logging.basicConfig(level=logging.INFO)
-#logging.root.handlers[0].setFormatter(UnityPy.Logger.ColoredFormatter())
-#logging.root.addHandler(UnityPy.Logger.ListHandler())
 
 orig_path = Path.cwd()
 
@@ -28,14 +26,9 @@ for asset_fn in sys.argv[1:]:
     am.load_file(asset_fn)
 
     sf, = am.assets.values()
-    # msk = [v for v in sf.objects.values() if isinstance(v.read(), UnityPy.classes.AudioClip)]
     msk = [v for v in sf.objects.values() if v.type == 'AudioClip']
     for m in msk:
         obj = m.read()
-        #~ with open(f'{obj.name}.dat', 'wb') as fp:
-            #~ fp.write(obj.m_AudioData)
-        #~ import code; code.interact(local=locals())
-        # print(obj.m_AudioData)
 
         for filename, mem in obj.samples.items():
             target = orig_path / filename
